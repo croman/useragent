@@ -3,6 +3,7 @@ package ua
 import (
 	"bytes"
 	"regexp"
+	"sort"
 	"strings"
 )
 
@@ -391,9 +392,15 @@ func (p properties) existsAny(keys ...string) bool {
 }
 
 func (p properties) findMacOSVersion() string {
-	for k, v := range p {
+	keys := make([]string, 0)
+	for k := range p {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, k := range keys {
 		if strings.Contains(k, "OS") {
-			if ver := findVersion(v); ver != "" {
+			if ver := findVersion(p[k]); ver != "" {
 				return ver
 			} else if ver = findVersion(k); ver != "" {
 				return ver
