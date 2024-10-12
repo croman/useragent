@@ -55,14 +55,15 @@ const (
 	Msie             = "MSIE"
 	SamsungBrowser   = "Samsung Browser"
 
-	GoogleAdsBot        = "Google Ads Bot"
-	Googlebot           = "Googlebot"
-	Twitterbot          = "Twitterbot"
-	FacebookExternalHit = "facebookexternalhit"
-	Applebot            = "Applebot"
-	Bingbot             = "Bingbot"
-	YandexBot           = "YandexBot"
-	YandexAdNet         = "YandexAdNet"
+	GoogleAdsBot             = "Google Ads Bot"
+	Googlebot                = "Googlebot"
+	Twitterbot               = "Twitterbot"
+	FacebookExternalHit      = "facebookexternalhit"
+	Applebot                 = "Applebot"
+	Bingbot                  = "Bingbot"
+	YandexBot                = "YandexBot"
+	YandexAdNet              = "YandexAdNet"
+	YandexRenderResourcesBot = "YandexRenderResourcesBot"
 
 	FacebookApp  = "Facebook App"
 	InstagramApp = "Instagram App"
@@ -252,6 +253,12 @@ func Parse(userAgent string) UserAgent {
 	case tokens.get(YandexAdNet) != "":
 		ua.Name = YandexAdNet
 		ua.Version = tokens.get(YandexAdNet)
+		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
+		ua.Bot = true
+
+	case tokens.get(YandexRenderResourcesBot) != "":
+		ua.Name = YandexRenderResourcesBot
+		ua.Version = tokens.get(YandexRenderResourcesBot)
 		ua.Mobile = tokens.existsAny(Mobile, MobileSafari)
 		ua.Bot = true
 
